@@ -63,7 +63,7 @@ class RecordViewModel @ViewModelInject constructor(
     }
 
     fun initializeTracking() {
-        Log.d("Khang", "initializeTracking")
+        Log.d(TAG, "initializeTracking")
         _startLatLng.value = null
         _endLatLng.value = null
         route.clear()
@@ -71,10 +71,11 @@ class RecordViewModel @ViewModelInject constructor(
         _speed.value = 0f
         speedRecords.clear()
         _durationInMilliseconds.value = 0
+        clearTrackingState()
     }
 
     fun startTracking() {
-        Log.d("Khang", "startTracking")
+        Log.d(TAG, "startTracking")
         savedStateHandle.set(TRACKING_LOCATION_SAVED_STATE_KEY, true)
         startTimer()
     }
@@ -170,6 +171,7 @@ class RecordViewModel @ViewModelInject constructor(
     private fun isStartLocation() = route.isEmpty()
 
     companion object {
+        private val TAG = RecordViewModel::class.java.simpleName
         private const val TRACKING_LOCATION_SAVED_STATE_KEY = "TRACKING_LOCATION_SAVED_STATE_KEY"
         private const val MINIMUM_ACCEPTABLE_LENGTH_IN_METERS = 10
         private const val MINIMUM_LENGTH_TO_ACCEPT_SPEED = 5

@@ -47,6 +47,7 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
 
     private val locationServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            Log.d(TAG, "onServiceConnected")
             val binder = service as LocationService.LocalBinder
             locationService = binder.service
             locationServiceBound = true
@@ -67,8 +68,9 @@ class RecordFragment : Fragment(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
+            Log.d(TAG, "onBackPressed")
             locationService?.myAppPreferences?.set(SharedPreferencesKey.TRACKING_LOCATION, false)
-            recordViewModel.clearTrackingState()
+//            recordViewModel.clearTrackingState()
             findNavController().popBackStack()
         }
     }
